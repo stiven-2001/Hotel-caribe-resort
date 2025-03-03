@@ -1,0 +1,57 @@
+
+body {
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #283747, #5d6d7e);
+    color: white;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Estilo de las tarjetas de habitaciones */
+.card {
+    color: black;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* tamaño de las imagenes de las habitaciones*/
+.card-img-top {
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card:hover:not(.factura) {
+    transform: scale(1.05);
+}
+
+/* Formulario */
+.form-control, .form-select {
+    border-radius: 5px;
+    border: 1px solid #5d6d7e;
+}
+
+
+.btn-primary {
+    background-color: #007BFF; /* Azul fuerte */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+

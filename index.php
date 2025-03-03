@@ -3,18 +3,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hotel Caribe</title>
-<style>
-    body {
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(to right, #283747, #5d6d7e);
-    }
-</style>
 
 <head>
     <title>Hotel Caribe Resort </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Styles/styles.css">
 </head>
 
 <body>
@@ -89,6 +84,8 @@
         </div>
     </div>
 
+    <br>
+
     <div class="card border-primary mb-3 mx-auto" style="max-width: 50rem;">
         <div class="card-header text-center">Formulario</div>
         <div class="card-body">
@@ -96,17 +93,17 @@
             <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
                 <div>
                     <label class="col-form-label mt-3" for="cedula">Ingrese su cédula</label>
-                    <input type="text" class="form-control" placeholder="Ingrese su cédula" id="cedula">
+                    <input type="text" class="form-control" placeholder="Ingrese su cédula" id="cedula" name="cedula">
                 </div>
 
                 <div>
                     <label class="col-form-label mt-3" for="nombre">Ingrese su nombre</label>
-                    <input type="text" class="form-control" placeholder="Ingrese su nombre" id="nombre">
+                    <input type="text" class="form-control" placeholder="Ingrese su nombre" id="nombre" name="nombre">
                 </div>
 
                 <div>
                     <label for="exampleSelect2" class="form-label mt-4">Selecciona tu ciudad</label>
-                    <select multiple class="form-select" id="exampleSelect2">
+                    <select multiple class="form-select" id="exampleSelect2" name="ciudad">
                         <option>Barranquilla</option>
                         <option>Cartagena</option>
                         <option>Santa Marta</option>
@@ -154,13 +151,7 @@
                 <br>
 
                 <div>
-                    <button type="submit" class="btn btn-outline-info w-100 mt-3"
-                       >Reservar</button>
-                    <div id="alerta" class="alert alert-dismissible alert-success mt-3" style="display:none;">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>¡Bien hecho!</strong> Has reservado la <a href="#" class="alert-link">habitacion</a>
-                        correctamente.
-                    </div></button> 
+                    <button type="submit" class="btn btn-outline-info w-100 mt-3">Reservar</button>
                 </div>
                 <br><br>
                 
@@ -168,32 +159,54 @@
             </form>
 
             <?php
-                if($_SERVER["REQUEST_METHOD"] == "POST") {
-                    
-                    $tipo=$_POST['tipo'];
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $nombre = $_POST['nombre'];
+                    $cedula = $_POST['cedula'];
+                    $ciudad = $_POST['ciudad'];
+                    $tipo = $_POST['tipo'];
                     $dias = $_POST['dias'];
                     $personas = $_POST['personas'];
+                    $fecha = $_POST['fecha'];
                     $total = 0;
 
-                    if($tipo=="Sencilla"){
-                        $total=80000*$dias;
-                    }
-                    if($tipo=="Doble"){
-                        $total=100000*$dias;
-                    }
-                    if($tipo=="Doble sencilla"){
-                        $total=100000*$dias;
-                    }
-                    if($tipo=="Multiple"){
-                        $total=120000*$dias;
+                    switch ($tipo) {
+                        case "Sencilla":
+                            $total = 80000 * $dias;
+                            break;
+                        case "Doble":
+                            $total=100000*$dias;
+                            break;
+                        case "Doble sencilla":
+                            $total = 100000 * $dias;
+                            break;
+                        case "Multiple":
+                            $total = 120000 * $dias;
+                            break;
                     }
 
                     if (isset($_POST['desayuno'])) {
                         $total += 8000 * $dias * $personas;
                     }
-                    echo "el costo de su estadia es de $ ".$total. " pesos";
+
+                    // Formatear el precio
+                    $total_formateado = number_format($total, 0, ',', '.');
+
+                    // Mostrar factura
+                    echo "<div class='card-header text-center'>Factura de Reserva</div>";
+                    echo "<div class='card-body'>";
+                    echo "<h4 class='card-title'>Hotel Caribe Resort</h4>";
+                    echo "<p><strong>Nombre:</strong> $nombre</p>";
+                    echo "<p><strong>Cédula:</strong> $cedula</p>";
+                    echo "<p><strong>Ciudad:</strong> $ciudad</p>";
+                    echo "<p><strong>Tipo de Habitación:</strong> $tipo</p>";
+                    echo "<p><strong>Número de Personas:</strong> $personas</p>";
+                    echo "<p><strong>Fecha de Ingreso:</strong> $fecha</p>";
+                    echo "<p><strong>Número de Días:</strong> $dias</p>";
+                    echo "<p><strong>Incluye Desayuno:</strong> " . (isset($_POST['desayuno']) ? "Sí" : "No") . "</p>";
+                    echo "<h3 class='text-success'>Total a Pagar: $ " . $total_formateado . " pesos</h3>";
+                    echo "</div></div>";
                 }
-                ?>
+        ?>
 
         </div>
     </div>
