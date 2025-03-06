@@ -15,7 +15,7 @@ h1 {
 .card {
     color: black;
     border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 /* tamaño de las imagenes de las habitaciones*/
@@ -42,7 +42,7 @@ h1 {
 
 
 .btn-primary {
-    background-color: #007BFF; /* Azul fuerte */
+    background-color: #007BFF;
     border: none;
     color: white;
     font-weight: bold;
